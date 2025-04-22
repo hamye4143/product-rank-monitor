@@ -12,19 +12,27 @@ from datetime import datetime
 load_dotenv()
 
 
-def downloadExcel(column1,column2,column3):
+def downloadExcel(column1, column2, column3):
     try:
+        folder_path = "results"
+        os.makedirs(folder_path, exist_ok=True)  # 없으면 폴더 생성
 
-        # 엑셀 파일 만들기
-        raw_data = {'상품명' : column1,
-                '키워드' : column2,
-                datetime.today().strftime("%Y-%m-%d"): column3} #리스트 자료형으로 생성
+        filename = f"상품순위_{datetime.today().strftime('%Y%m%d%H%M%S')}.xlsx"
+        filepath = os.path.join(folder_path, filename)
+
+        raw_data = {
+            '상품명': column1,
+            '키워드': column2,
+            datetime.today().strftime("%Y-%m-%d"): column3
+        }
 
         dataframe = pd.DataFrame(raw_data).set_index(['상품명', '키워드'])
-        dataframe.to_excel('상품순위_'+datetime.today().strftime("%Y%m%d%H%M%S")+'.xlsx', sheet_name=datetime.today().strftime("%Y-%m-%d"))
+        dataframe.to_excel(filepath, sheet_name=datetime.today().strftime("%Y-%m-%d"))
+
+        print(f"[저장 완료] {filepath}")
 
     except Exception as err:
-        print('[ERROR] ',err)
+        print('[ERROR]', err)
 
 
 def resource_path(relative_path):
