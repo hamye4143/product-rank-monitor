@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.pyc
+
+# Firebase
+firebase_key.json
+
+# dotenv
+.env
+
+# Excel 결과 파일
+*.xlsx
+
+# PyInstaller
+dist/
+build/
+*.spec
